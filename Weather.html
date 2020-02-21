@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check the weather of your city</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+        
+        $(document).ready(function(){
+            $('#getResult').click(function(){
+
+                var requestData=$('#cityName').val();
+                console.log(requestData);
+                var result=$('#display');
+               
+                $.ajax({
+                    url :'http://api.openweathermap.org/data/2.5/weather',
+                    method:'get',
+                    data:{q:requestData,appid:'c85fd49fad90c3bb064fa10f82acdfba'},
+                    dataType:'json',
+                    success:function(data){
+                            document.getElementById("main").innerHTML=data.weather[0].main;
+                            document.getElementById("city").innerHTML=$('#cityName').val();
+                            document.getElementById("description").innerHTML=data.weather[0].description;
+                    }
+                });
+            });
+        });
+        </script>
+        <style>
+            table,th,td{
+                border: 1px solid black;
+
+            }
+        </style>
+    </head>
+    <body style="background-image: url(http://yowindow.com/img/promo/spring_sunrize_800.jpg);
+    font-size: larger;">
+        <div style="text-align: center;margin-top: 5rem;text-decoration: brown;">
+            Enter the name of the city:
+            <input type="text" id="cityName"><br><br>
+            Enter the name of the state:
+            <input type="text" id="StateName"><br><br>
+            <button id="getResult">Get the weather Info</button><br><br>
+        </div>
+    
+        <div id="display">
+            <table>
+                <thead><tr><th>City</th><th>Main</th><th>Description</th></tr></thead>
+                <tbody><tr>
+                    <td><p id="city"></p></td>
+                    <td><p id="main"></p></td>
+                    <td align="right"><p id="description"></p></td>
+                </tr></tbody>
+            </table>
+        </div>
+
+    </body>
+</html>
